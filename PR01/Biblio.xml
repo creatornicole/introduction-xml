@@ -2,15 +2,30 @@
 
 <!-- Ein einfaches XML-Dokument -->
 
+<!-- Interne Document Type Definition (DTD) -->
+<!DOCTYPE biblio [
+	<!ELEMENT biblio (buch+)> <!-- 1...nx Element buch -->
+	<!ELEMENT buch (kuerzel, titel, autoren, verlag)> <!-- buch mit Unterelementen (Reihenfolge zu beachten!) -->
+	<!-- Festlegung Inhalt der Kindelemente von buch -->
+	<!ELEMENT kuerzel (#PCDATA)>
+	<!ELEMENT titel (#PCDATA)>
+	<!ELEMENT autoren ANY)>
+	<!ELEMENT verlag (#PCDATA)>
+	<!ELEMENT kurzInfo (#PCDATA)>
+	<!-- Attributszuweisungen zu manchen aufgefuehrten Elementen -->
+	<!ATTLIST buch buch_id ID #REQUIRED> <!-- buch Element soll Attribut buch_id haben -->
+	<!ATTLIST verlag link CDATA #IMPLIED> <!-- verlag Element kann link Attribut Typ String besitzen -->
+]>
+
 <biblio> <!-- Root-Element -->
-	<buch buch_id="1">
+	<buch buch_id="_00001">
 		<kuerzel>[Harold 05]</kuerzel>
 		<titel>XML in a Nutshell</titel>
 		<autoren>Harold, E.R.; Means, W.S.</autoren>
 		<verlag>0&apos;Reilly Verlag Köln</verlag> <!-- $apos; Entity-Ref -->
 	</buch>
 	
-	<buch buch_id="2">
+	<buch buch_id="_00002">
 		<kuerzel>[Niedermeier 05]</kuerzel>
 		<titel>Java und XML</titel>
 		<autoren> <!-- typischer mixed content -->
