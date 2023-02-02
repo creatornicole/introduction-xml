@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> <!-- standalone="no" weitere externe Dateien sind mit zu verarbeiten -->
 
 <!-- Ein einfaches XML-Dokument -->
 
@@ -9,12 +9,14 @@
 	<!-- Festlegung Inhalt der Kindelemente von buch -->
 	<!ELEMENT kuerzel (#PCDATA)>
 	<!ELEMENT titel (#PCDATA)>
-	<!ELEMENT autoren ANY)>
+	<!ELEMENT autoren ANY>
 	<!ELEMENT verlag (#PCDATA)>
 	<!ELEMENT kurzInfo (#PCDATA)>
 	<!-- Attributszuweisungen zu manchen aufgefuehrten Elementen -->
 	<!ATTLIST buch buch_id ID #REQUIRED> <!-- buch Element soll Attribut buch_id haben -->
 	<!ATTLIST verlag link CDATA #IMPLIED> <!-- verlag Element kann link Attribut Typ String besitzen -->
+	
+	<!ENTITY extBuchListe SYSTEM "externeBuchListe.xml">
 ]>
 
 <biblio> <!-- Root-Element -->
@@ -31,7 +33,7 @@
 		<autoren> <!-- typischer mixed content -->
 			Niedermeier, St.; Scholz, M
 			<kurzInfo> 
-				<![CDATA [
+				<![CDATA[
 					Stephan Niedermeier befasst sich als freier Entwickler, Trainer
 					und Autor seit vielen Jahren mit Java und XML. Bei Galileo Computing
 					ist zuletzt "Cocoon 2 und Tomcat" erschienen. Michael Scholz ist
@@ -41,4 +43,7 @@
 		</autoren>
 		<verlag link="www.galileocomputing.de">Galileo Press Bonn</verlag>
 	</buch>
+	
+	<!-- Entity (Abkuerzung/Ersetzungshinweis in internal DTD festgelegt, wird mit Verweis auf externe Buchliste ersetzt -->
+	&extBuchListe;
 </biblio>
