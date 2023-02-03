@@ -1,0 +1,63 @@
+
+	<!ELEMENT messberichte (messbericht+)>
+	<!-- Elemente -->
+	<!ELEMENT messbericht (kopfdaten, messwertdaten, pruefergebnis)> <!-- messbericht mit Kindelementen -->
+	<!ELEMENT kopfdaten (artikeldateldaten, pruefdaten, lieferantendaten)> <!-- Kopfdaten hat wieder Kindelemente -->
+	<!ELEMENT messwertdaten (pruefmerkmal+)> <!-- Messtwertdaten mit mindestens einem Kindelement pruefmerkmal -->
+	<!ELEMENT pruefergebnis (bemerkung, nacharbeitstermin?)> <!-- Pruefergebnis braucht Bemerkung, jedoch keinen Nacharbeitstermin (nur, wenn Einstufung Nacharbeit) -->
+	
+	<!-- Kopfdaten -->
+	<!-- Artikeldaten -->
+	<!ELEMENT artikeldaten (zeichnungsnummer, bezeichnung)>
+	<!ELEMENT zeichnungsnummer (#PCDATA)>
+	<!ELEMENT bezeichnung (#PCDATA)>	
+	<!-- Pruefdaten -->
+	<!ELEMENT pruefdaten (pruefer, arbeitszeit)>
+	<!ELEMENT pruefer (name, email)>
+	<!ELEMENT arbeitszeit (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT email (#PCDATA)>
+	<!-- Lieferantendaten -->
+	<!ELEMENT lieferantendaten (lieferant)>
+	<!ELEMENT lieferant (#PCDATA)>
+
+	<!-- Messwertdaten -->
+	<!ELEMENT pruefmerkmal (messwert+, mittelwert)>
+	<!ELEMENT messwert (#PCDATA)>
+	<!ELEMENT mittelwert (#PCDATA)>
+	
+	<!-- Pruefergebnis -->
+	<!ELEMENT bemerkung (#PCDATA)>
+	<!ELEMENT nacharbeitstermin (#PCDATA)>
+	
+	<!-- Attribute -->
+	<!-- Auflistung nach Vorkommen in XML -->
+	<!ATTLIST messbericht
+		messbericht-nr &id;
+		datum CDATA #REQUIRED
+	>
+	<!ATTLIST artikeldaten 
+		artikel-id CDATA #REQUIRED
+	>
+	<!ATTLIST pruefdaten 
+		pruefplan-id CDATA #REQUIRED
+	>
+	<!ATTLIST pruefer
+		personal-id CDATA #REQUIRED
+	>
+	<!ATTLIST lieferantendaten
+		lieferanten-id CDATA #REQUIRED
+	>
+	<!ATTLIST pruefmerkmal
+		name CDATA #REQUIRED
+		dimension CDATA #REQUIRED
+	>
+	<!ATTLIST messwert
+		lfd-Nr CDATA #REQUIRED
+	>
+	<!ATTLIST pruefergebnis 
+		einstufung (Nacharbeit | Gut | Schlecht) #REQUIRED
+	>
+	
+	<!-- Enitaeten -->
+	<!ENTITY id "ID #REQUIRED">
