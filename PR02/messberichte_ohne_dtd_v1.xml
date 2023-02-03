@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<messberichte>
+
+	<messbericht messbericht-nr="YLZ-0723" datum="25.09.2022">
+		<kopfdaten>
+		
+			<artikeldaten artikel-id="wz-123-876">
+				<zeichnungsnummer></zeichnungsnummer>
+				<bezeichnung>CPU-Kühlkörper A1</bezeichnung>
+			</artikeldaten>
+			
+			<pruefdaten pruefplan-id="wz-123-876">
+				<pruefer personal-id="HM0102">
+					<name>Stefan Muster</name>
+					<email>stefan@abcd.com</email>
+				</pruefer>	
+				<arbeitszeit>4.5 Stunden</arbeitszeit>
+			</prueferdaten>
+			
+			<lieferantendaten lieferanten-id="L00304">
+				<lieferant>Fisher AG, Ulm</lieferant>
+			</lieferantendaten>
+
+		</kopfdaten>
+		
+		<messwerdaten>
+		
+			<pruefmerkmal name="Laenge-a" dimension="mm">
+				<messwert lfd-Nr="1">50,12</messwert>
+				<messwert lfd-Nr="2">50,01</messwert>
+				<messwert lfd-Nr="3">49,98</messwert>
+				<mittelwert>50,04</mittelwert>
+			</pruefmerkmal>
+			
+			<pruefmerkmal name="Gesamtmasse" dimension="g">
+				<messwert lfd-Nr="1">210,3</messwert>
+				<messwert lfd-Nr="2">209,8</messwert>
+				<messwert lfd-Nr="3">208,9</messwert>
+				<mittelwert>209,7</mittelwert>
+			</pruefmerkmal>
+		
+		</messwerdaten>
+		
+		<pruefergebnis einstufung="Nacharbeit"> <!-- Nacharbeit oder gut oder schlecht -->
+			<bemerkung>
+				Die Prüf-Ergebnisse liegen in einem Grenzbereich, so dass der o.g. Artikel mit einer
+				speziellen Nacharbeit XYZ einer erneuten Prüfung unterzogen werden kann.
+			</bemerkung>
+			<nacharbeitstermin>25.10.2022</nacharbeitstermin> <!-- nur bei Angabe Nacharbeit notwendig -->
+		</pruefergebnis>
+	
+	</messbericht>
+	
+</messberichte>
