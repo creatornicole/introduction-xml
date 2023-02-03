@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!DOCTYPE messberichte [
+	
+	<!ELEMENT messberichte (messbericht+)>
+	<!-- Elemente -->
+	<!ELEMENT messbericht (kopfdaten, messwertdaten, pruefergebnis)> <!-- messbericht mit Kindelementen -->
+	<!ELEMENT kopfdaten (artikeldateldaten, pruefdaten, lieferantendaten)> <!-- Kopfdaten hat wieder Kindelemente -->
+	<!ELEMENT messwertdaten (pruefmerkmal+)> <!-- Messtwertdaten mit mindestens einem Kindelement pruefmerkmal -->
+	<!ELEMENT pruefergebnis (bemerkung, nacharbeitstermin?)> <!-- Pruefergebnis braucht Bemerkung, jedoch keinen Nacharbeitstermin (nur, wenn Einstufung Nacharbeit) -->
+	
+	<!-- Kopfdaten -->
+	<!-- Artikeldaten -->
+	<!ELEMENT artikeldaten (zeichnungsnummer, bezeichnung)>
+	<!ELEMENT zeichnungsnummer (#PCDATA)>
+	<!ELEMENT bezeichnung (#PCDATA)>	
+	<!-- Pruefdaten -->
+	<!ELEMENT pruefdaten (pruefer, arbeitszeit)>
+	<!ELEMENT pruefer (name, email)>
+	<!ELEMENT arbeitszeit (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT email (#PCDATA)>
+	<!-- Lieferantendaten -->
+	<!ELEMENT lieferantendaten (lieferant)>
+	<!ELEMENT lieferant (#PCDATA)>
+
+	<!-- Messwertdaten -->
+	<!ELEMENT pruefmerkmal (messwert+, mittelwert)>
+	<!ELEMENT messwert (#PCDATA)>
+	<!ELEMENT mittelwert (#PCDATA)>
+	
+	<!-- Pruefergebnis -->
+	<!ELEMENT bemerkung (#PCDATA)>
+	<!ELEMENT nacharbeitstermin (#PCDATA)>
+	
+	<!-- Attribute -->
+	<!-- Auflistung nach Vorkommen in XML -->
+	<!ATTLIST messbericht
+		messbericht-nr ID #REQUIRED
+		datum CDATA #REQUIRED
+	>
+	<!ATTLIST artikeldaten 
+		artikel-id CDATA #REQUIRED
+	>
+	<!ATTLIST pruefdaten 
+		pruefplan-id CDATA #REQUIRED
+	>
+	<!ATTLIST pruefer
+		personal-id CDATA #REQUIRED
+	>
+	<!ATTLIST lieferantendaten
+		lieferanten-id CDATA #REQUIRED
+	>
+	<!ATTLIST pruefmerkmal
+		name CDATA #REQUIRED
+		dimension CDATA #REQUIRED
+	>
+	<!ATTLIST messwert
+		lfd-Nr CDATA #REQUIRED
+	>
+	<!ATTLIST pruefergebnis 
+		einstufung (Nacharbeit | Gut | Schlecht) #REQUIRED
+	>
+]>
+
+<messberichte>
+
+	<messbericht messbericht-nr="YLZ-0723" datum="25.09.2022">
+		<kopfdaten>
+		
+			<artikeldaten artikel-id="wz-123-876">
+				<zeichnungsnummer>tpb7012578-v01</zeichnungsnummer>
+				<bezeichnung>CPU-Kühlkörper A1</bezeichnung>
+			</artikeldaten>
+			
+			<pruefdaten pruefplan-id="wz-123-876">
+				<pruefer personal-id="HM0102">
+					<name>Stefan Muster</name>
+					<email>stefan@abcd.com</email>
+				</pruefer>	
+				<arbeitszeit>4.5 Stunden</arbeitszeit>
+			</pruefdaten>
+			
+			<lieferantendaten lieferanten-id="L00304">
+				<lieferant>Fisher AG, Ulm</lieferant>
+			</lieferantendaten>
+
+		</kopfdaten>
+		
+		<messwerdaten>
+		
+			<pruefmerkmal name="Laenge-a" dimension="mm">
+				<messwert lfd-Nr="1">50,12</messwert>
+				<messwert lfd-Nr="2">50,01</messwert>
+				<messwert lfd-Nr="3">49,98</messwert>
+				<mittelwert>50,04</mittelwert>
+			</pruefmerkmal>
+			
+			<pruefmerkmal name="Gesamtmasse" dimension="g">
+				<messwert lfd-Nr="1">210,3</messwert>
+				<messwert lfd-Nr="2">209,8</messwert>
+				<messwert lfd-Nr="3">208,9</messwert>
+				<mittelwert>209,7</mittelwert>
+			</pruefmerkmal>
+		
+		</messwerdaten>
+		
+		<pruefergebnis einstufung="Nacharbeit"> <!-- Nacharbeit oder gut oder schlecht -->
+			<bemerkung>
+				Die Prüf-Ergebnisse liegen in einem Grenzbereich, so dass der o.g. Artikel mit einer
+				speziellen Nacharbeit XYZ einer erneuten Prüfung unterzogen werden kann.
+			</bemerkung>
+			<nacharbeitstermin>25.10.2022</nacharbeitstermin> <!-- nur bei Angabe Nacharbeit notwendig -->
+		</pruefergebnis>
+	
+	</messbericht>
+	
+</messberichte>

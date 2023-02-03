@@ -6,7 +6,7 @@
 		<kopfdaten>
 		
 			<artikeldaten artikel-id="wz-123-876">
-				<zeichnungsnummer></zeichnungsnummer>
+				<zeichnungsnummer>tpb7012578-v01</zeichnungsnummer>
 				<bezeichnung>CPU-Kühlkörper A1</bezeichnung>
 			</artikeldaten>
 			
@@ -16,7 +16,7 @@
 					<email>stefan@abcd.com</email>
 				</pruefer>	
 				<arbeitszeit>4.5 Stunden</arbeitszeit>
-			</prueferdaten>
+			</pruefdaten>
 			
 			<lieferantendaten lieferanten-id="L00304">
 				<lieferant>Fisher AG, Ulm</lieferant>
