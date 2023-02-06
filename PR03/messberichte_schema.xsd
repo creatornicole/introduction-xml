@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8">
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+<!-- XML-Schema Form: Stufen-Modell -->
+
+	<!-- Deklaration einfacher Typen -->
+	<!-- Deklaration dimension -->
+	<!-- dimension Wert Min oder Stunden -->
+	<xsd:simpleType name="dimension">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Min"/>
+			<xsd:enumeration value="Stunden"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- Deklaration komplexer Typen -->
+	<!-- Deklaration von prueferdaten -->
+	<!-- prueferdaten leeres Element mit Attributen pers_id, email, pr_name -->
+	<xsd:element name="prueferdaten">
+		<xsd:complexType>
+			<xsd:attribute name="pers_id" type="xsd:string"/>
+			<xsd:attribute name="email" type="xsd:string"/>
+			<xsd:attribute name="pr_name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration von arbeitszeit -->
+	<!-- arbeitszeit ist Element mit Textcontent -->
+	<xsd:element name="arbeitszeit">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:decimal">
+					<xsd:attribute name="dimension" type="dimension" use="required"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration von artikel -->
+	<!-- artikel ist Element Kindelement und Attributen artikel_id, zeichnungs_nr -->
+	<xsd:element name="artikel">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="art_bezeichnung" type="xsd:string"/>
+			</xsd:sequence>
+			<xsd:attribute name="artikel_id" type="xsd:string"/>
+			<xsd:attribute name="zeichnungs_nr" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration von pruefplandaten -->
+	<!-- pruefplandaten leeres Element mit Attribut ppl_id -->
+	<xsd:element name="pruefplandaten">
+		<xsd:complexType>
+			<xsd:attribute name="ppl_id" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration von lieferantendaten -->
+	<!-- lieferantendaten ist Element mit Kindelement und Attribut lief_id -->
+	<xsd:element name="lieferantendaten">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="lieferantenname" type="xsd:string"/>
+			</xsd:sequence>
+			<xsd:attribute name="lief_id" type="xsd:string"/>
+		</xsd:complexType>		
+	</xsd:element>
+	
+	<!-- Deklaration von pm_wert -->
+	<!-- pm_wert ist Element mit Textcontent und Attribut -->
+	<xsd:element name="pm_wert">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:decimal">
+					<xsd:attribute name="lfd_nr" type="xsd:int"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration weiterer Elemente mit Bezug auf bereits deklarierte -->
+	<!-- Deklaration Artikeldaten -->
+	<xsd:element name="artikeldaten">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="artikel"/> <!-- Bezugnahme auf deklariertes komplexes Element artikel -->
+			<xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration Pruefmerkmal -->
+	<xsd:element name="pruefmerkmal">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="pm_wert" minOccurs="1" maxOccurs="10" > <!-- Bezugnahme auf deklariertes komplexes Element pm_wert -->
+											<!-- ausserdem Festlegung Anzahl Vorkommen -->
+				<xsd:element name="pm_mittelwert" type="xsd:double"/>
+			</xsd:sequence>
+			<xsd:attribute name="pm_name" type="xsd:string"/>
+			<xsd:attribute name="pm_dimension" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration Kopfdaten -->
+	<xsd:element name="kopfdaten">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="prueferdaten"/>
+				<xsd:element ref="arbeitszeit"/>
+				<xsd:element ref="artikeldaten"/>
+				<xsd:element ref="pruefplandaten"/>
+				<xsd:element ref="lieferantendaten"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration Messwertdaten -->
+	<xsd:element name="messwertdaten">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="pruefmerkmal" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration Pruefergebnis -->
+	<!-- in geschachtelter Form -->
+	<xsd:element name="pruefergebnis">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="bemerkungen" type="xsd:string"/>
+				<xsd:element name="nacharbeitstermin" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="format" type="xsd:string"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="einstufung">
+				<xsd:simpleType base="xsd:string"/>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Gut"/>
+						<xsd:enumeration value="Schlecht"/>
+						<xsd:enumeration value="Nacharbeit"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration Messbericht -->
+	<!-- bestehend aus den drei Teilen Kopfdaten, Messwertdaten, Pruefergebnis -->
+	<xsd:element name="messbericht">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="kopfdaten"/>
+				<xsd:element ref="messwertdaten"/>
+				<xsd:element ref="pruefergebnis"/>
+			</xsd:sequence>
+			<xsd:attribute name="mb_id" type="xsd:ID" use="required"/>
+			<xsd:attribute name="pruefdatum" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Deklaration Messberichte (Root-Element) -->
+	<xsd:element name="messberichte">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="messbericht" minOccurs="1" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	<xsd:element>
+	
+</xsd:schema>

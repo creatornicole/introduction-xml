@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utft-8" ?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+	<!-- Element Deklaration Root-Element -->
+	<xsd:element name="biblio" type="buchListe"/> <!-- type ist complexType der nachfolgend definiert wird -->
+	
+	<!-- complexType Definition von buchListe -->
+	<xsd:complexType name="buchListe">
+		<xsd:sequence> <!-- Festlegung Auftreten Element - feste Reihenfolge -->
+			<xsd:element name="buch" type="buch" maxOccurs="unbounded"> <!-- type ist complexType buch, nachfolgend definiert -->
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<!-- complexType Definition von buch -->
+	<xsd:complexType name="buch">
+		<xsd:sequence>
+			<xsd:element name="kuerzel" type="xsd:string"/>
+			<xsd:element name="titel" type="xsd:string"/>
+			<xsd:element name="autoren" type="xsd:string"/>
+			<xsd:element name="verlag" type="xsd:string"/>
+		<xsd:sequence>
+		<xsd:attribute name="buch_id" type="xsd:ID" use="required"/>
+	</xsd:complexType>
+	
+</xsd:schema>
