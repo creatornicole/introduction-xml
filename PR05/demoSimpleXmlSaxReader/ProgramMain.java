@@ -12,6 +12,9 @@ public class ProgramMain {
 		//SAX-Reader instanziieren und initialisieren
 		SimpleSaxReader mySaxReader = new SimpleSaxReader(path + xmlFile);
 		
+		//Eigenen ContentHandler registrieren
+		mySaxReader.setContentHandler(new MyContentHandler());
+		
 		//Parsen starten und SAX-Events erzeugen
 		mySaxReader.run();
 
